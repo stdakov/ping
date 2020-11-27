@@ -22,17 +22,22 @@ set_error_handler('error_handler');
 function dd($a)
 {
     echo "<pre>";
-    print_r($a);
+    var_dump($a);
     die();
 }
 
 if (strpos($_SERVER["REQUEST_URI"], '/api/v1/ping') === 0 && array_key_exists("host", $_GET)) {
     $bgpost = new \App\Service\PingService();
+    $mode = "exec";
+    if (array_key_exists("mode", $_GET) && $_GET["mode"] = "fsock") {
+        $mode = "fsock";
+    }
+    $host = trim($_GET['host']);
+
 
     $data = [];
     $data["host"] = trim($_GET['host']);
-    $data["online"] = $bgpost->ping(trim($_GET['host']));
-
+    $data["online"] = $bgpost->ping(trim($_GET['host']), $mode);
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($data);
 } else {

@@ -4,9 +4,21 @@ namespace App\Service;
 
 class PingService
 {
-    public function ping(string $host, string $mode = "ping")
+    public function ping(string $host, string $mode = "exec")
     {
-        return $this->exec($host);
+
+        // if (filter_var($host, FILTER_VALIDATE_URL) || filter_var($host, FILTER_VALIDATE_IP)) {
+
+        // } else {
+        //     return false;
+        // }
+
+        switch ($mode) {
+            case "exec":
+                return $this->exec($host);
+            case "fsock":
+                return $this->fsock($host);
+        }
     }
 
     public function exec(string $host)
