@@ -64,6 +64,7 @@ h1 {
 
 .btn-ping {
   background-color: #ffe54c;
+  width: 60px;
   color: black;
   border-radius: 5px;
   border: 1px solid black;
@@ -108,8 +109,60 @@ h1 {
 
 .list-group .btn-ping {
   margin-right: 10px;
+  width: 50px;
+  height: 25px;
 }
 
 #inputHost {
   margin-right: 10px;
+}
+
+.loader {
+  display: none;
+  margin: auto;
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.list-group-item-pulsing {
+  background-color: #fff;
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes color {
+  0% {
+    background-color: #fff;
+  }
+  50% {
+    background-color: #c2ffff;
+  }
+  100 {
+    background-color: #fff;
+  }
 }

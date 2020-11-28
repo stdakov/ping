@@ -29,7 +29,10 @@
                                     <label for="inputHost" class="sr-only">Host</label>
                                     <input type="text" class="form-control" id="inputHost" placeholder="Host">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-ping mb-2">Ping</button>
+                                <button type="submit" class="btn btn-primary btn-ping mb-2">
+                                    <span class="btn-label">Ping</span>
+                                    <div class="loader"></div>
+                                </button>
                             </form>
 
                             <ul class="list-group">

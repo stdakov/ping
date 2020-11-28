@@ -71,13 +71,24 @@ $(document).ready(function () {
 
   $("#host-form").submit(function (event) {
     event.preventDefault();
+    $("#host-form").find("button").find(".btn-label").hide();
+    $("#host-form").find("button").find(".loader").show();
+    var host = $("#inputHost").val();
+    if (!ValidateHostname(host) && !ValidateIPaddress(host)) {
+      alert("You have entered an invalid IP address!");
+      $("#host-form").find("button").find(".loader").hide();
+      $("#host-form").find("button").find(".btn-label").show();
+      return;
+    }
     $.ajax({
-      url: "/api/v1/ping?host=" + $("#inputHost").val(),
+      url: "/api/v1/ping?host=" + host,
       dataType: "json",
       success: function (data) {
         var item = LocalStorage.add(data.host);
         loadElement(item, data.online);
         $("#inputHost").val("");
+        $("#host-form").find("button").find(".loader").hide();
+        $("#host-form").find("button").find(".btn-label").show();
       },
     });
   });
@@ -96,6 +107,11 @@ $(document).ready(function () {
   $(document).on("click", ".btn-reping", function (e) {
     e.preventDefault();
     var parent = $(this).parents(".list-group-item");
+    parent.find(".btn-label").hide();
+    parent.find(".loader").show();
+    parent.removeClass("list-group-item-success");
+    parent.removeClass("list-group-item-danger");
+    parent.addClass("list-group-item-pulsing");
     $.ajax({
       url: "/api/v1/ping?host=" + parent.find("a").text(),
       dataType: "json",
@@ -103,12 +119,38 @@ $(document).ready(function () {
         var status = data.online
           ? "list-group-item-success"
           : "list-group-item-danger";
-        parent.removeClass("list-group-item-success");
-        parent.removeClass("list-group-item-danger");
+
+        parent.removeClass("list-group-item-pulsing");
         parent.addClass(status);
+
+        parent.find(".btn-label").show();
+        parent.find(".loader").hide();
       },
     });
   });
+
+  function ValidateIPaddress(host) {
+    if (
+      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+        host
+      )
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function ValidateHostname(host) {
+    if (
+      /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])(:[0-9]+)?$/.test(
+        host
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }
 
   function loadElement(item, isOnline) {
     var parentPanel = $("body").find(".list-group");
@@ -123,7 +165,7 @@ $(document).ready(function () {
     var element =
       '<li data-item-id="' +
       item.id +
-      '" class="list-group-item  d-flex justify-content-between list-group-item ' +
+      '" class="list-group-item d-flex justify-content-between list-group-item ' +
       status +
       '">\n' +
       '<p class="p-0 m-0 flex-grow-1"><a target="_blank" href="http://' +
@@ -131,7 +173,7 @@ $(document).ready(function () {
       '">' +
       item.host +
       "</a></p>\n" +
-      '<button class="btn-primary  btn-ping btn-reping">ping</button>\n' +
+      '<button class="btn-primary  btn-ping btn-reping"><span class="btn-label">ping</span><div class="loader"></div></button>\n' +
       '<button class="btn-danger remove">\n' +
       '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\n' +
       '<path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"></path>\n' +

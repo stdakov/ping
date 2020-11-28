@@ -33,6 +33,7 @@ if (strpos($_SERVER["REQUEST_URI"], '/api/v1/ping') === 0 && array_key_exists("h
     if (array_key_exists("mode", $_GET) && ($_GET["mode"] == "fsock" || $_GET["mode"] == "exec")) {
         $mode = $_GET["mode"];
     }
+
     $host = trim($_GET['host']);
 
     $data = [];

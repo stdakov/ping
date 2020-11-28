@@ -1,8 +1,9 @@
 # ping
 
+![](img/screenshot1.png)
 Check if your service is online.
 
-Demo https://ping.dakovdev.com
+Demo at https://ping.dakovdev.com
 
 ## Guidelines
 
