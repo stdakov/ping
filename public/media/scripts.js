@@ -126,7 +126,7 @@ $(document).ready(function () {
       '" class="list-group-item  d-flex justify-content-between list-group-item ' +
       status +
       '">\n' +
-      '<p class="p-0 m-0 flex-grow-1"><a target="_blank" href="' +
+      '<p class="p-0 m-0 flex-grow-1"><a target="_blank" href="http://' +
       item.host +
       '">' +
       item.host +

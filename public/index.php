@@ -27,13 +27,13 @@ function dd($a)
 }
 
 if (strpos($_SERVER["REQUEST_URI"], '/api/v1/ping') === 0 && array_key_exists("host", $_GET)) {
+
     $bgpost = new \App\Service\PingService();
-    $mode = "exec";
-    if (array_key_exists("mode", $_GET) && $_GET["mode"] = "fsock") {
-        $mode = "fsock";
+    $mode = "all";
+    if (array_key_exists("mode", $_GET) && ($_GET["mode"] == "fsock" || $_GET["mode"] == "exec")) {
+        $mode = $_GET["mode"];
     }
     $host = trim($_GET['host']);
-
 
     $data = [];
     $data["host"] = trim($_GET['host']);
