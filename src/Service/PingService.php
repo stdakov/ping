@@ -7,7 +7,7 @@ class PingService
     public function ping(string $host, string $mode = "exec")
     {
         $host = preg_replace("(^https?://)", "", $host);
-        list($host, $port) = explode(':', $host);
+        list($host, $port) = array_pad(explode(':', $host, 2), 2, null);
         $port = intval($port);
 
         $validIpAddressRegex = "/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/";
