@@ -1,6 +1,6 @@
 # ping
 
-![](img/screenshot1.png)
+![](img/screenshot2.png)
 Check if your service is online.
 
 Demo at https://ping.dakovdev.com
