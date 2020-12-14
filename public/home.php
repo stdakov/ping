@@ -11,6 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Check if your service is online" />
+
+    <script async defer data-website-id="054d2eee-55a1-4254-813e-f8228889dbb6" src="https://stats.dakovdev.com/umami.js"></script>
 </head>
 
 <body>
